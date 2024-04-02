@@ -1,0 +1,13 @@
+Data Written to Config File
+StartTime:     1709546963,
+Goal:          66,
+BrewMode:      2,
+Reboot Cnt:    0,
+FonTime:       0.0,
+HonTime:       0.0,
+HeaterOnDur:   40,
+FridgeOnDur:   180,
+Bias #1:       0.1,
+Bias #2:      -0.2,
+Bias #3:       0.3,
+Code:        19772,

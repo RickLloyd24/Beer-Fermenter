@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title> Ferminator </title>
+<meta name="viewport" content="width=590, user-scalable=no">
+  <style>
+    html {font-family: Arial; display: inline-block; margin: 10px auto; }
+	h1 {font-size: 30px; text-align: left; color: Gold; margin: 0px 0px 0px 5px;}
+    h2 {font-size: 25px; text-align: left; color: Blue; margin: 0px 0px 0px 5px;}
+    h3 {font-size: 25px; text-align: left; color: brown; margin: 0px 0px 0px 5px;  }
+    h4 {font-size: 20px; text-align: left; color: black; margin: 0px 0px 0px 0px; }
+	h5 { font-size: 25px; text-align: left; color: DodgerBlue; margin: 0px 0px 0px 0px;}
+    p { font-size: 15px; color:black; margin: 0px 0px 0px 0px;}
+    body {margin: 0px 0px 0px 10px; }
+	.button {color: white; background-color: darkblue; text-align: center; display: inline-block; height: 35px; font-size: 25px; margin: 1px 1px 10px 1px; cursor: pointer; }
+	.buttonred {color: white; background-color: red; text-align: center; display: inline-block; height: 35px; font-size: 25px; margin: 1px 1px 10px 1px; cursor: pointer; }
+	.buttonyellow {color: black; background-color: yellow; text-align: center; display: inline-block; height: 35px; font-size: 25px; margin: 1px 1px 10px 1px; cursor: pointer; }
+	.buttongreen {color: white; background-color: green; text-align: center; display: inline-block; height: 35px; font-size: 25px; margin: 1px 1px 10px 1px; cursor: pointer; }
+    .units {font-size: 20px; color: brown; }
+    .labels {font-size: 20px; color: darkgreen; }
+    .values {font-size: 20px; color: Chocolate; }
+    .goal {font-size: 20px; }
+</style>
+</head>
+<!-- ---------------------------- Start of Page ----------------------- -->
+<body>
+  <h1>Rick's Ferminator </h1>
+  <h2> Average Temperature = @TE  &#xBA;F                          </h2>
+  <h5>@DT Date and Time                                                         </h5>
+  <h3> Days Running = <span style = "color:green;" name="Days">@DA          </span> </h3>
+<!-- Goal -->  
+   <form action="/get" >
+    <span style = "font-size: 20px";>
+      <span class="goal">Current Goal=</span> <span id="goal">@GO    </span> 
+      New Goal: <input style = "font-size: 20px"; type="text" Name="NewGoal" value="" size="4" maxlength="2"> 
+      <input style = "font-size: 20px"; type="submit" value="Submit">
+    </span>
+  </form>    
+  <!-- Status -->  
+  <h3> Status: <span class="values" id="Status" style = "color:Blue;" >@ST                                                </span> </h3>
+  <p>
+    <span class="labels">Temperature  </span>
+      <span class="values" id="Temp1">@T1                               </span> 
+      <span class="units">&#xBA;F</span> <br>
+	<span class="labels">Coldest Temp</span>
+      <span class="values" id="Coldest">@CO    </span> 
+      <span class="units">&#xBA;F</span>
+    <span class="labels">Warmest Temp </span>
+      <span class="values" id="Warmest">@WA     </span>
+      <span class="units">&#xBA;F</span> <br>
+    <span class="labels">Frig is </span>
+      <span class="labels" style="color:@Fc     " id="FonStat">@Fs  </span> 
+      <span class="labels">Frig On Time  </span>
+      <span class="values" id="FonTime">@FT     </span> 
+      <span class="units"> %</span><br>
+    <span class="labels">Heater is </span>
+      <span class="labels" style = "color:@Hc      " id="FonStat">@Hs  </span> 
+      <span class="labels">Heater On Time  </span>
+      <span class="values" id="HonTime">@HT    </span> 
+      <span class="units"> %</span><br>
+	<span class="labels">Heater-Goal </span>
+	  <span class="values" id="overshoot">@OS    </span> 
+	  <span class="units">&#xBA;F</span>
+      <span class="labels">Fridge-Goal </span>
+      <span class="values" id="undershoot">@US    </span> 
+      <span class="units">&#xBA;F</span> <br>
+	<form action="/get" >
+    <span class="labels">Reboots </span>
+      <span class="values" id="REBOOT">@RE    </span> 
+    <span class="labels">RSSI </span>
+      <span class="values" id="RSSI">@RS    </span> 
+      <span class="units">dBm</span>
+  </p>
+<form action="/get">
+  <span style= "font-size: 20px";>
+    <span style= "color:brown"; </span>
+	<input type="radio" id="html" name="brewtype" value="Lager" @C1    >
+    <label for="lager">Lager</label>
+	<input type="radio" id="css" name="brewtype" value="Ale" @C2     >
+	<label for="ale">Ale</label>
+	<input type="radio" id="other" name="brewtype" value="Other" @C3     >
+ 	<label for="other">Other</label>
+    <input type="radio" id="other" name="brewtype" value="ColdCrash" @C4     >
+ 	<label for="other">ColdCrash</label>
+	<input style = "font-size: 20px"; type="submit" value="Submit">
+   </span>
+</form>
+<!-- Buttons -->      
+  <form action="/get" >
+    <span style= "font-size: 25px";>
+      <input class="buttongreen" type="submit" Name="Clear" value="Clr">
+      <input class="buttongreen" type="submit" Name="Start" value="New Batch">
+	  <input class="button" type="submit" name="Refresh" value="Refresh"> <br>
+    </span>
+  </form>  
+<p> 
+Use "ferm.local/webserial" for modifications.  <br>
+&nbsp;&nbsp;&nbsp;Send ? in WebSerial for options <br>
+Use "ferm.local/update" to upload a new program or data <br>
+Date Compiled: @SV                                                                              <br>
+</p>
+</body>
+</html>
