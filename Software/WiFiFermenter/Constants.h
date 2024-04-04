@@ -9,18 +9,11 @@
 #define CHANNEL  0
 #define NumRGBColors 8
 
-/* Time Variables */
-const char* ntpServer = "pool.ntp.org";
-const char* ntpServer2 = "time.nist.gov";
-const long  gmtOffset_sec = -480*60;       // Los Angeles Time Zone
-const int   daylightOffset_sec = 3600;
-
 /* Temperature Variables */
 #define WindowSamples 1800                   // 30 minutes
 #define MaxTemp 80
 #define MinTemp 32
 #define MaxDeltaTemp 3.0
-#define Tolerance 1.5                         //Temp above or below goal to take action
 
 /* Lager, Ale and ColdCrash Definitions */
 #define LagerDayStart 6

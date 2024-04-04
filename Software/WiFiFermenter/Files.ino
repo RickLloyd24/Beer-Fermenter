@@ -21,6 +21,7 @@ boolean ReadConfigFile() {
      TempBias[1] = GetSubString(s).toFloat();
      TempBias[2] = GetSubString(s).toFloat();
      TempBias[3] = GetSubString(s).toFloat();
+     Tolerance = GetSubString(s).toFloat();
      code = GetSubString(s).toInt();
    }   
    file.close();
@@ -39,6 +40,7 @@ void WriteConfigFile (void) {
      s = s + "Bias #1:       " + String(TempBias[1],2) + ",\n";
      s = s + "Bias #2:       " + String(TempBias[2],2) + ",\n";
      s = s + "Bias #3:       " + String(TempBias[3],2) + ",\n";
+     s = s + "Tolerance:     " + String(Tolerance,1) + ",\n";
      s = s + "Code:        19772,\n\n";
   File file = LittleFS.open(ConfigFN, "w");
   file.print(s);

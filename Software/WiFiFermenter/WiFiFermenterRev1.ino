@@ -19,6 +19,7 @@
 #include <Update.h>
 
 boolean LoggingOn = false;
+boolean LoggingDelta = false;
 const String imageString = "data:image/bmp;base64,Qk0uCAAAAAAAAHYAAAAoAAAAZwAAACYAAAABAAQAAAAAALgHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAgAAAAICAAIAAAACAAIAAgIAAAICAgADAwMAAAAD/AAD/AAAA//8A/wAAAP8A/wD//wAA////APhmj/////////////////////////////////////////////////////////////////CGd2/////////////////////////////////////////////////////////////////wZ3dn////////////////////////////////////////////////////////////////8Gd3Z/////////////////////////////////////////////////////////////////Bnd2eIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiI/wZ3dmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm8Gd3Znd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3dnBnd2Z3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3dgZ3dmd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3YGd3Znd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d2Bnd2Z3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3dgZ3dmd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3iHd3eId3d3d3d3d3d3d3YGd3Znd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d4h3d3iHd3d3d3d3d3d3d2Bnd2Z3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3eId3d4h3d3d3d3d3d3d3dgZ3dmd3d3d3d3d/h3d373d393d3/393f/+HeId493d/h3d373iP+HeI/4d3d3d3d3d3d3YGd3Znd3d3d3d3ePd3d4h3d/d3ePd/d/h3+HiH73d3ePd3d4h493+Hj3f4d3d3d3d3d3d2Bnd2Z3d3d3d3d3f3d3f4d3f3d++Hf373d3d4h/h3d3f3d3f4eId494h3j3d3d3d3d3d3dgZ3dmd3d3d3d3d3j///93d393f4d39493d3ePj3d3d3j///93iHfveId+93d3d3d3d3d3YGd3Znd3d3d3d3d+93f4d3d///+Hd/fvd3d3iPh3d3d+93f4d4h3j3iHePd3d3d3d3d3d2Bnd2Z3d3d3d3d3d/h+93d3f3d3j3f3f4d/d4jvh3d3d/h+93ePd/h493+Hd3d3d3d3d3dgZ3dmd3d3d3d3d3ePeId3d393d39393f/+HeIfvh3d3ePeId3iP/3eI//d3d3d3d3d3d3YGd3Znd3d3d3d3d3f493d3d/d3d/d3d3d3d3iHd3d3d3f493d3d3d3d3d3d3d3d3d3d3d2Bnd2Z3d3d3d3d3d3iPd3d3f3d3j3d3d3d3d4h3d3d3d3iPd3d3d3d3d3d3d3d3d3d3d3dgZ3dmd3d3d3d3d3d++Hd3d3////d393d3d3eId3d3d3d++Hd3d3d3d3d3d3d3d3d3d3d3YGd3Znd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d2Bnd2Z3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3dgZ3dmd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3YGdnZnd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d2BmZmZ3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3dgZmZmd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3YGdmZnd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d2B2dmZ3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3dg92ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmYP/4iIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIdmZmD////////////////////////////////////////////////////////////////3ZmZg////////////////////////////////////////////////////////////////+GZmYP////////////////////////////////////////////////////////////////92ZoD/////////////////////////////////////////////////////////////////93jw";
 
 /* File Variables */
@@ -31,6 +32,7 @@ float HonTime = 0;
 unsigned int HeaterOnDur = 50;
 unsigned int FridgeOnDur = 60;
 float TempBias[4];                             /* Delta (#1-#2), Sensor #1 Offset, Sensor #2 Offset, Sensor #3 Offset */
+float Tolerance = 1.5; 
 
 /* HTML Variables */
 int ptr = 0;                                   /* ptr into file string */ 
@@ -61,8 +63,7 @@ boolean ValidTime = false;
 /* Temperature and Freezer Global Variables */
 float Temperature[] = {0, 0, 0, 0};           /* Current Temperature, Sensor #1, Sensor #2, Sensor #3 */
 int numTS = 0;
-int UsingSensor = 1;
-float Tolerance = 1.5;                         //Temp above or below goal to take action
+int UsingSensor= 1;
 
 /* Define Structures and Objects */
 AsyncWebServer server(80);
@@ -208,6 +209,7 @@ void setup ( void ) {
   OnesecondTasks = curtime + SECONDMILS + 100;
   TensecondTasks = curtime + TENSECONDMILS + 200;
   OneHourTasks = curtime + MINUTEMILS + 400;
+  
 }
 /* -------------------------------------------------------------------------------------------------------- */
 void loop ( void ) {

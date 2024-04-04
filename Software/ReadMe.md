@@ -33,7 +33,8 @@ temperature goal, then the refrigerator temperature will move 1.5
 degrees above and below the goal temperature. If the outside temperature
 is always above or below the goal temperature, the temperature will
 change 0.75 degrees. The default tolerance is 1.5 degrees, but you can
-change this if you want it to be tighter.
+change this if you want it to be tighter. You will need to adjust the
+Fridge On time and the Heater On time if you change this.
 
 The next two lines provide the refrigerator and heater status. They tell
 you if they are currently on or off and the percentage of time, they
@@ -107,7 +108,7 @@ three steps:
       yeast and make your final beer clearer. You can also add gelatin
       during the cold crash period to help clear the final product.
 
-## Setup
+## Startup
 
 When the processor is first powered up the setup process starts. One of
 the first tasks is to connect to the Wi-Fi network. The built in LED
@@ -134,20 +135,121 @@ shows the color of the RGB LED, and the problem encountered.
 
 7. Color Green all tests Passed.
 
-## Passwords.h
+When the RGB LED is green and the built in LED is flashing all is good.
 
-**You must edit the “Passwords.h” file for the program to work.** This
-file contains network names, network passwords, email addresses, email
-passwords, DNS name and GMT offset. The file contains comments for all
-the required entries.
+## Setup
+
+After you have downloaded the software and support files, you must edit
+the Passwords.h file.
+
+### Time Variables
+
+For the program to display local time you need to update the
+gmsOffset_sec variable. If you are west of Greenwich Mean Time (GMT) the
+values are negative and east, they are positive. On the internet find
+out your time offset from GMT. The offset is in seconds. In Los Angeles
+I am 8 hours (480 minutes) behind GMT, so the input is 480\*60 to get
+seconds. We still have daylight savings time in Los Angeles, so I
+entered 3600 (1 hour) for daylightOffset_sec. If you are lucky enough to
+not have daylight savings time set this value to 0.
+
+### Network and Passwords
+
+The following are the fields you must edit network names, passwords and
+Email addresses:
+
+1. ssid – is your Wi-Fi network name.
+
+2. password – Wi-Fi network password
+
+3. UseEmail – if you don’t want to use the email and text message
+   feature set this to false
+
+4. AUTHOR_EMAIL – this is the email that you use for your Arduino
+   boards. Emails are sent from this account.
+
+5. AUTHOR_PASSWORD – this is the special App password you set up for
+   Arduino boards. (see Emails and Text messages section.
+
+6. RECIPIENT_EMAIL1 – this is your main email account.
+
+7. RECIPIENT_EMAIL2 – this is for text messages.
+
+### Temperature Sensors
+
+You can have up to 3 temperature sensors, but you must have at least 1.
+If you are not using MCP sensors set this value to 0. You can only use
+one type of DHT sensor. You can use just 1 DHT sensor and everything
+will be fine.
+
+### Hardware Pin Assignments
+
+This section is where you define the GPIO pin numbers. You have to keep
+the names in this section, but you can assign dummy pin numbers if you
+are not using the device. LEDS_PIN and BuiltinLED are hard wired on the
+processor, so they cannot be changed. All the other pins can be changed.
+
+### Copy Files
+
+You must copy the files in the data folder to the microprocessor. The
+Arduino board configuration is ESP32 WROOM DA Module, Minimal SPIFFS
+with OTA, Core 1 Arduino Events Core 0. You must configure your Arduino
+compiler to upload data files for an ESP32 board. After Arduino is
+configured, you have the option “ESP32 sketch data upload”. Select this
+option and LittleFS and both the config.txt and Fermenter.html files
+will be uploaded. You must have the serial monitor window closed to
+upload the files. The following link provides instructions to create a
+file system.
+<https://randomnerdtutorials.com/install-esp32-filesystem-uploader-arduino-ide/>
+
+## Configuring
+
+After you have the program running you may want to configure the program
+for your refrigerator, heater, and temperature sensors. To configure the
+system, while it is running open the WebSerial window
+(ferm.local/webserial). The ‘?” and send. You will see the something
+similar to the following:
+
+Commands Are:
+
+- Bias i f.f (Current 0.1, -1.4, -1.5)
+
+- Day f.f (Current 0.9)
+
+- Log On/Off
+
+- Heater On ii Seconds (Current 25)
+
+- Fridge On ii Seconds (Current 180)
+
+- Tolerance (Current 1.5)
+
+- Log Delta (Log Delta again to turn off)
+
+This is where you can adjust temperature sensor biases and adjust the on
+time for the heater and fridge. Log On will display the current goal,
+temperature sensor values, fridge on, heater on, Heater-Goal and
+Fridge-Goal. With logging on you can easily see the temperature sensor
+biases. To adjust the bias on sensor \#2, type Bias 2 -0.2.
+
+If your Heater-Goal or Fridge-Goal is too large adjust the on time. If
+the value is negative increase the on time and if the value is positive
+decrease the on time. Log Delta only logs the temperature when the
+fridge or heater are turned on. It makes it easy to see the Heater-Goal
+or Fridge-Goal values to adjust the on time.
+
+Once your system is set up you normally don’t have to change these
+settings unless you change the hardware.
 
 ## Files.ino
 
 The files folder reads and writes the configuration information in a
 file name config.txt. This file is in the “data” folder per the Arduino
-standard. The configuration file must be uploaded to the ESP32 board for
-the program to run. There are several places where you can find
-instructions on setting up a file system and uploading files.
+standard.
+
+file must be uploaded to the ESP32 board for the program to run. There
+are several places where you can find instructions on setting up a file
+system and uploading files.
 /<https://randomnerdtutorials.com/install-esp32-filesystem-uploader-arduino-ide/>.
 I chose the LittleFS because it is small and reliable.
 
@@ -201,21 +303,21 @@ passwords can only be used with accounts that have 2-Step Verification
 turned on.
 
 I recommend generating a new Gmail account for emails from your Arduino
-devices. You can set up a rule to forward these emails to your main
-email account and/or to send them to generate a text message.
+devices. The email is sent from this account and your main email and
+text message email are on the cc: line.
 
 My phone service provider is T-Mobile, so to send a text message from an
-email you type in the phone number and send it to tmomail.net
+email account you type in the phone number and send it to tmomail.net
 (<7145361998@tmomail.net>).
 
-When you get an email, the subject is “Alert from Keg Monitor”. Emails
+When you get an email, the subject is “Alert from Ferminator”. Emails
 and text messages are sent for the following reasons.
 
-"Keg Monitor: Temperature is too hot, above 40 degrees F.
+"The temperature is too high (3 times tolerance).
 
-"Keg Monitor: Temperature is too cold, below 30 degrees F.
+"The temperature is too cold (3 times tolerance).
 
-"No communication with Keg Freezer for one hour"
+"The temperature is hot (above max temperature).
 
 ## Port Forwarding
 

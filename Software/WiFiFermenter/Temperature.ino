@@ -190,6 +190,7 @@ void TurnOn(float temperature) {
         if (digitalRead(FrigControlPin) == 0) {                                   /* Fridge Off? */
          digitalWrite(FrigControlPin, HIGH);                
          digitalWrite(HeaterControlPin, LOW);               
+         if (LoggingDelta) LoggingOn = true;
          FridgeEndTime = curtime + FridgeOnDur * 1000;                         /* Set Fridge On Time Duration */
         }
       }  
@@ -200,6 +201,7 @@ void TurnOn(float temperature) {
         if (digitalRead(HeaterControlPin) == 0) {
           digitalWrite(HeaterControlPin, HIGH);
           digitalWrite(FrigControlPin, LOW);
+          if (LoggingDelta) LoggingOn = true;
           HeaterEndTime = curtime + HeaterOnDur * 1000;
         }  
       }
@@ -207,23 +209,27 @@ void TurnOn(float temperature) {
 }
 void EstHeaterGoal(float temperature) {
   if (HeaterOffFlag) {
+    if (LoggingDelta) LoggingOn = true;
     if (temperature >= HeaterOffTemp) {
       HeaterGoal = temperature - goal;
       HeaterOffTemp = temperature;
     }
     else {
-      HeaterOffFlag = false;  
+      HeaterOffFlag = false;
+      if (LoggingDelta) LoggingOn = false;
     }
   }
 }
 void EstFridgeGoal(float temperature) {
   if (FrigOffFlag) {
+    if (LoggingDelta) LoggingOn = true;
     if (temperature <= FrigOffTemp) {
-      FridgeGoal = goal - temperature;
+      FridgeGoal = temperature - goal;
       FrigOffTemp = temperature;
     }
     else {
-      FrigOffFlag = false;  
+      FrigOffFlag = false; 
+      if (LoggingDelta) LoggingOn = false;
     }
   }
 }

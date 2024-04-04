@@ -18,6 +18,8 @@ void recvMsg(uint8_t *data, size_t len){
     WebSerial.println("Log On/Off");
     WebSerial.println("Heater On ii Seconds (Current " + String(HeaterOnDur) + ")");
     WebSerial.println("Fridge On ii Seconds (Current " + String(FridgeOnDur) + ")");
+    WebSerial.println("Tolerance (Current " + String(Tolerance, 1) + ")");
+    WebSerial.println("Log Delta (Log Delta again to turn off)");
   }
   else if (SubString == "bias") {
     int sn = d.charAt(5) - '0';
@@ -53,6 +55,12 @@ void recvMsg(uint8_t *data, size_t len){
     FridgeOnDur = temp;
     WriteConfigFile();
   }
+  else if (SubString == "tole") { 
+    SubString = d.substring(9, x);
+    Tolerance = SubString.toFloat();
+    WebSerial.println("Tolerance is now " + String(Tolerance));
+    WriteConfigFile();
+  }
   else if (SubString == "font") { 
     WebSerial.println("Fridge On Time is " + String(FonTime));
   }
@@ -61,7 +69,12 @@ void recvMsg(uint8_t *data, size_t len){
   }
   else if (SubString == "log ") { 
     SubString = d.substring(4, x);
-    if (SubString == "on") {
+    if (SubString == "delta") {
+      LoggingDelta = !LoggingDelta;
+      if (LoggingDelta) WebSerial.println("Logging Delta is On");
+      if (!LoggingDelta) WebSerial.println("Logging Delta is Off");
+    }
+    else if (SubString == "on") {
       LoggingOn = true;
       WebSerial.println("Logging is On");
       String s = "Goal ";
@@ -71,12 +84,12 @@ void recvMsg(uint8_t *data, size_t len){
       s = s + "Hon Fon Hgoal Fgoal";
       WebSerial.println(s);
     }
-    else {
+    else if (SubString == "off") {
       LoggingOn = false;
       WebSerial.println("Logging is Off");
     }
   }  
-  else if {
+  else {
     WebSerial.println("Command not Recognized");
   }
 }

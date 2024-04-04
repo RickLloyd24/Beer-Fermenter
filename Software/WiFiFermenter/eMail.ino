@@ -2,7 +2,10 @@
 /* flag: 1 = email, 2 = text message, 3 = both */
 void eMail(String textMsg, int flag) {
   #define SMTP_PORT esp_mail_smtp_port_465 // port 465 is not available for Outlook.com
-
+  if (!UseEmail) {
+    Serial.println("Email not sent");
+    return;
+  }
 
   /*  Set the network reconnection option */
   MailClient.networkReconnect(true);
