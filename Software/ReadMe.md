@@ -163,13 +163,13 @@ Email addresses:
 2. password – Wi-Fi network password
 
 3. UseEmail – if you don’t want to use the email and text message
-   feature set this to false
+   feature set this to false.
 
 4. AUTHOR_EMAIL – this is the email that you use for your Arduino
    boards. Emails are sent from this account.
 
 5. AUTHOR_PASSWORD – this is the special App password you set up for
-   Arduino boards. (see Emails and Text messages section.
+   Arduino boards. (See Emails and Text messages section.
 
 6. RECIPIENT_EMAIL1 – this is your main email account.
 
@@ -212,19 +212,19 @@ similar to the following:
 
 Commands Are:
 
-- Bias i f.f (Current 0.1, -1.4, -1.5)
+Bias i f.f (Current 0.1, -1.4, -1.5)
 
-- Day f.f (Current 0.9)
+Day f.f (Current 0.9)
 
-- Log On/Off
+Log On/Off
 
-- Heater On ii Seconds (Current 25)
+Heater On ii Seconds (Current 25)
 
-- Fridge On ii Seconds (Current 180)
+Fridge On ii Seconds (Current 180)
 
-- Tolerance (Current 1.5)
+Tolerance (Current 1.5)
 
-- Log Delta (Log Delta again to turn off)
+Log Delta (Log Delta again to turn off)
 
 This is where you can adjust temperature sensor biases and adjust the on
 time for the heater and fridge. Log On will display the current goal,
